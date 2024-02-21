@@ -14,13 +14,26 @@ To install 24BMP, clone this repository to your desired location using below cod
 ```bash
 git clone https://github.com/choiyh592/24BrainMRI_Preprocessing_Dev.git
 cd 24BrainMRI_Preprocessing_Dev
-python3 -m pip install -r requirements.txt
 ```
-You can install all requirements by executing the 
+
+### Requirements
+24BM was developed using Python 3.10.4. Thus a Python version of 3.10.4 is recommended.
+
+You can install all requirements by executing the following code.
+* For Windows or Linux : 
+```bash
+ python3 -m pip install -r requirements.txt
+```
+
+* For Mac : 
+```bash
+python3 -m pip install -r requirements.mac.txt
+```
+
 ## Usage
 The Syntax for running the entire pipeline is :
 ```
-python 24BrainMRI_Preprocessing/main.py 
+python3 24BrainMRI_Preprocessing/main.py 
     --inputtxt /path/to/your/input/filepaths/text/file \
     --resampledtxt /path/to/your/resampled/filepaths/text/file \
     --outputdir /path/to/your/output/directory \
