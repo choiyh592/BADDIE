@@ -50,9 +50,10 @@ python 24BrainMRI_Preprocessing/main.py --help
 ```
 Below are descriptions for the flags.
 * `--inputtxt`: Text File containing T1 MRI paths for all subjects. There should be only one path per line. An example is provided below.
-* `--resampledtxt`: Text File containing paths for resampled MRIs of all subjects. There should be only one path per line. Should be in the same order as the --inputtxt file. Should have the same number of lines as the --inputtxt file. An example is provided below.
 * `--outputdir`: Path for a single directory to contain all outputs. An example is provided below.
-* `--sidtxt`: Text File containing the subject ID to use. There should be only one ID per line. Should be in the same order as the --inputtxt file. Should have the same number of lines as the --inputtxt file. Should be unique. An example is provided below.
+* `--sidtxt`: Text File containing the subject ID to use. There should be only one ID per line. \
+Should be in the same order as the --inputtxt file. Should have the same number of lines as the `--inputtxt` file. Should be unique. \
+An example is provided below.
 * `--device`: Select device to run FastSurferCNN inference on: cpu, or cuda(= Nvidia GPU) or specify a certain GPU (e.g. cuda:1). ```auto``` by default.
 
 ### Input Requirements & Recommendations
@@ -79,8 +80,8 @@ Below is an example illustrating the content format of the file.
 2_22223333
 ```
 In this format, each line consists of an index followed by an underscore and an ID.
-This indexing method ensures uniqueness and aids in maintaining the order of file paths.
-Note that the order of the filepaths should be the same as in `--inputtxt`.
+This indexing method ensures uniqueness and aids in maintaining the order of file paths. \
+Note that the order of the filepaths should be the same as in `--inputtxt`. \
 We recommend that you index the IDs like above (indexed and separated with an underscore) to assure uniqueness.
 
 `--outputdir` : String containing the **Absolute Path** where you wish to contain the outputs. Below is an example.
@@ -96,7 +97,7 @@ The `--outputdir` flag determines the (absolute) location of the outputs.
 4 subdirectories will be created within the output directory : `resampled`, `segmentations`, `extractions`, `text_files`.
 * `resampled` : Subdirectory containing the resampled MRI files.
 * `segmentations` : Subdirectory containing the segment masks and conformed MRI files. 
-Segmentation of each patient is stored in subdirectories with the patient ID as the name.
+Segmentation of each patient is stored in subdirectories with the patient ID as the name. \
 Below is the FastSurfer documentation for the segmentation outputs.
 
     | directory   | filename                      | module    | description |
@@ -109,7 +110,7 @@ Below is the FastSurfer documentation for the segmentation outputs.
     | .           | qc_log.log                    | asegdkt   | quality check logfile : will be empty if the qc process is successful|
     | .           | seg_log.log                   | asegdkt   | segmentation logs|
 
-* `extractions` : Subdirectory containing the extracted, cropped and padded MRI files and a tensor dataset containing the files.
+* `extractions` : Subdirectory containing the extracted, cropped and padded MRI files and a tensor dataset containing the files. \
 The order of files in the tensor dataset corresponds to the sequential order specified in the `--inputtxt` file.
 Below is the documentation for the extraction outputs.
 
