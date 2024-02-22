@@ -4,7 +4,7 @@ This README contains all information on how to run 24BrainMRI_Preprocessing(24BM
 
 ![](/images/pipeline_diagram.png)
 
-Above is a diagram for the 24BMP Pipeline. The 24BMP pipeline consists of three main parts for **Resampling**, **Segmentation** and **Brainpart Extraction**. The **Resampling** Part relies entirely on the resampling method used in **lab2im**, and the **Segmentation** Part on FastSurferCNN from **FastSurfer**. Both libraries are cited in the bottom of the README.
+Above is a diagram for the 24BMP Pipeline. The 24BMP pipeline consists of three main parts for **Resampling**, **Segmentation** and **Brainpart Extraction**. The **Resampling** Part relies entirely on the resampling method used in **lab2im**, and the **Segmentation** Part on FastSurferCNN from **FastSurfer**. Both libraries are cited in the bottom of this README.
 
 # Getting Started
 
@@ -39,7 +39,7 @@ python3 24BrainMRI_Preprocessing/main.py
     --outputdir /path/to/your/output/directory \
     --device your_device
 ```
-To execute the entire the pipeline, you can run the above code in the terminal after navigating to the root directory of your local repository.
+To execute the entire pipeline, you can run the above code in the terminal after navigating to the root directory of your local repository.
 
 The execution takes about 6 minutes per MRI, assuming that FastSurferCNN is run on GPU. Using a GPU is highly recommended.
 
