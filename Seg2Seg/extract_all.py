@@ -22,12 +22,12 @@ def process_images(resampled_file_path, mask_file_path, srcdir, outputdir, num_o
 
             # Dirs to create
             part_to_segment = part_to_segment.replace('-', '_')
-            segment_left_path = srcdir + '/nifti_'+ part_to_segment.lower() + 'left_paths.txt'
-            segment_right_path = srcdir + '/nifti_'+ part_to_segment.lower() + 'right_paths.txt'
-            cropped_left_path = srcdir + '/nifti_'+ part_to_segment.lower() + 'left_cropped_paths.txt'
-            cropped_right_path = srcdir + '/nifti_'+ part_to_segment.lower() + 'right_cropped_paths.txt'
-            padded_left_path = srcdir + '/nifti_'+ part_to_segment.lower() + 'left_padded__paths.txt'
-            padded_right_path = srcdir + '/nifti_'+ part_to_segment.lower() + 'right_padded_paths.txt'
+            segment_left_path = srcdir + '/nifti_'+ part_to_segment.lower() + '_left_paths.txt'
+            segment_right_path = srcdir + '/nifti_'+ part_to_segment.lower() + '_right_paths.txt'
+            cropped_left_path = srcdir + '/nifti_'+ part_to_segment.lower() + '_left_cropped_paths.txt'
+            cropped_right_path = srcdir + '/nifti_'+ part_to_segment.lower() + '_right_cropped_paths.txt'
+            padded_left_path = srcdir + '/nifti_'+ part_to_segment.lower() + '_left_padded_paths.txt'
+            padded_right_path = srcdir + '/nifti_'+ part_to_segment.lower() + '_right_padded_paths.txt'
 
             ###############################################
             # OS filepaths & txt files configurations
@@ -102,7 +102,7 @@ def process_images(resampled_file_path, mask_file_path, srcdir, outputdir, num_o
             # Dirs to create
             segment_path = srcdir + '/' + 'nifti_'+ part_to_segment.lower() + '_paths.txt'
             cropped_path = srcdir + '/' + 'nifti_'+ part_to_segment.lower() + '_cropped_paths.txt'
-            padded_path = srcdir + '/' + 'nifti_'+ part_to_segment.lower() + '_padded__paths.txt'
+            padded_path = srcdir + '/' + 'nifti_'+ part_to_segment.lower() + '_padded_paths.txt'
 
             ###############################################
             # OS filepaths & txt files configurations

@@ -11,17 +11,25 @@ def read_file(file_path):
     # Print the list of lines
     return lines
 
-def create_text_files(seg_path, txt_path, sids):
+def create_text_files(seg_path, res_path, txt_path, sids):
         conformed_paths = []
         segmented_paths = []
+        resampled_paths = []
         for sid in sids:
             conformed_path = seg_path / f'{sid}' / 'mri' / 'orig.mgz'
             segmented_path = seg_path / f'{sid}' / 'mri' / 'aparc.DKTatlas+aseg.deep.mgz'
+            resampled_path = res_path / f'{sid}_resampled.nii.gz'
             conformed_paths.append(conformed_path)
             segmented_paths.append(segmented_path)
+            resampled_paths.append(resampled_path)
         
+        resampled_path_txt = txt_path / '_resampled_paths.txt'
         conformed_path_txt = txt_path / '_conformed_paths.txt'
         segmented_path_txt = txt_path / '_segmented_paths.txt'
+
+        with open(resampled_path_txt, 'w') as file:
+            for path in resampled_paths:
+                file.write(f'{path}\n')
 
         with open(conformed_path_txt, 'w') as file:
             for path in conformed_paths:
@@ -31,7 +39,7 @@ def create_text_files(seg_path, txt_path, sids):
             for path in segmented_paths:
                 file.write(f'{path}\n')
 
-        return conformed_path_txt, segmented_path_txt
+        return resampled_path_txt, conformed_path_txt, segmented_path_txt
 
 # Define a function to create a custom parser
 def create_parser(iteration, t1, sd, device, sid):
@@ -54,7 +62,6 @@ def create_parser(iteration, t1, sd, device, sid):
 
     # Unused
     parser.add_argument('--inputtxt', type=str, help='Text File containing T1 MRI paths for all subjects. One path per line.')
-    parser.add_argument('--resampledtxt', type=str, help='Text File containing paths for resampled MRIs of all subjects. One path per line.')
     parser.add_argument('--outputdir', type=str, help='Path for a single directory to contain all outputs.')
     parser.add_argument('--sidtxt', type=str, help='Text File containing the subject ID to use. One ID per line.' , default=None)
 
