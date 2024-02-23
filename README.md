@@ -93,7 +93,7 @@ We recommend that you index the IDs like above (indexed and separated with an un
 
 `--device` : String containing the name of the device to perform FastSurferCNN Inference on. We highly recommend using a GPU('cuda').
 
-`--va` : This option decides whether to conduct volumetric analysis. Can be `True` or `False`. If `True`, the outcomes will be saved as `__volumetic_analysis.csv` in the `/test_files` directory within the output folder. Patient volumes are recorded in cubic millimeters (mm<sup>3</sup>) If `False`(Default), volumetic analysis is skipped. Volumetric analysis takes about 30 seconds per image.
+`--va` : This option decides whether to conduct volumetric analysis. Can be `True` or `False`. If `True`, the outcomes will be saved as `__volumetic_analysis.csv` in the `/test_files` directory within the output folder. Patient volumes are recorded in cubic millimeters (mm<sup>3</sup>). If `False`(Default), volumetic analysis is skipped. Volumetric analysis takes about 30 seconds per image.
 
 ### Outputs
 The `--outputdir` flag determines the (absolute) location of the outputs.
