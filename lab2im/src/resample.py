@@ -23,12 +23,12 @@ def preprocess(path_image, ct, target_res=1., n_levels=5, crop=None, min_pad=Non
         print('WARNING: detected more than 1 channel, only keeping the first channel.')
         im = im[..., 0]
 
-    # resample image if necessary
+    # resample image # if necessary
     target_res = np.squeeze(utils.reformat_to_n_channels_array(target_res, n_dims))
-    if np.any((im_res > target_res + 0.05) | (im_res < target_res - 0.05)):
-        im_res = target_res
-        im, aff = edit_volumes.resample_volume(im, aff, im_res)
-        if path_resample is not None:
-            utils.save_volume(im, aff, h, path_resample)
+    # if np.any((im_res > target_res + 0.05) | (im_res < target_res - 0.05)):
+    im_res = target_res
+    im, aff = edit_volumes.resample_volume(im, aff, im_res)
+    if path_resample is not None:
+        utils.save_volume(im, aff, h, path_resample)
 
     return im, aff, h, im_res

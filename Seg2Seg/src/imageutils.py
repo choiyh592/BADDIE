@@ -212,7 +212,7 @@ def quality_check(txt_file_path):
             nifti_image = nib.load(file_path.strip())
             data = nifti_image.get_fdata()
             if data.shape == (2, 2, 2):
-                failed_qc_list.append(file_path)
+                failed_qc_list.append(file_path.strip())
         
         return failed_qc_list
 
