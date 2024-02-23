@@ -132,7 +132,7 @@ Below is the documentation for the extraction outputs.
 The order of paths in the text file corresponds to the sequential order specified in the `--inputtxt` file.\
 CSV files containing the outcomes of quality checks and volumetric analyses are also provided in this directory.\
 The `__qc_failed.csv` file contains paths to files that failed the quality check. The files in the csv should have faulty segmentations. \
-The `__volumetric_analysis.csv` file contains volumetric assessments for each patient, identified by their unique patient IDs provided in `--sid`.
+The `__volumetric_analysis.csv` file is created if `--va` is set to `True`. It contains volumetric assessments for each patient, identified by their unique patient IDs provided in `--sid`.
 
 Below is an example output demonstrating the utilization of the flags provided above.
 ```
