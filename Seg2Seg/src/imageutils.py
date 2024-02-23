@@ -215,3 +215,22 @@ def quality_check(txt_file_path):
                 failed_qc_list.append(file_path)
         
         return failed_qc_list
+
+def calculate_volume(nifti_path, mask_path, roi_value):
+    # Load the NIfTI image and the segmentation mask
+    nifti_img = nib.load(nifti_path)
+    mask_img = nib.load(mask_path)
+
+    # Extract the data arrays from the images
+    mask_data = mask_img.get_fdata()
+
+    # Define the voxel dimensions (assumes isotropic voxels)
+    voxel_size = np.prod(nifti_img.header.get_zooms())
+
+    # Count the number of voxels within the specified ROI
+    roi_voxel_count = np.sum(mask_data == roi_value)
+
+    # Calculate the volume by multiplying voxel count by voxel size
+    roi_volume = roi_voxel_count * voxel_size
+
+    return roi_volume

@@ -37,7 +37,8 @@ python3 24BrainMRI_Preprocessing/main.py \
     --inputtxt /path/to/your/input/filepaths/text/file \
     --sidtxt /path/to/your/patient/ids/text/file \
     --outputdir /path/to/your/output/directory \
-    --device your_device
+    --device your_device \
+    --va False
 ```
 To execute the entire pipeline, you can run the above code in the terminal after navigating to the root directory of your local repository.
 
@@ -49,12 +50,13 @@ The execution takes about 6 minutes per MRI, assuming that FastSurferCNN is run 
 python 24BrainMRI_Preprocessing/main.py --help
 ```
 Below are descriptions for the flags.
-* `--inputtxt`: Text File containing T1 MRI paths for all subjects. There should be only one path per line. An example is provided below.
-* `--outputdir`: Path for a single directory to contain all outputs. An example is provided below.
-* `--sidtxt`: Text File containing the subject ID to use. There should be only one ID per line. \
+* `--inputtxt`(str): Text File containing T1 MRI paths for all subjects. There should be only one path per line. An example is provided below.
+* `--outputdir`(str): Path for a single directory to contain all outputs. An example is provided below.
+* `--sidtxt`(str): Text File containing the subject ID to use. There should be only one ID per line. \
 Should be in the same order as the --inputtxt file. Should have the same number of lines as the `--inputtxt` file. Should be unique. \
 An example is provided below.
-* `--device`: Select device to run FastSurferCNN inference on: cpu, or cuda(= Nvidia GPU) or specify a certain GPU (e.g. cuda:1). ```auto``` by default.
+* `--device`(str): Select device to run FastSurferCNN inference on: cpu, or cuda(= Nvidia GPU) or specify a certain GPU (e.g. cuda:1). ```auto``` by default.
+* `--va`(bool) : If true, volumetric analyses on all segmented files are performed. False by default.
 
 ### Input Requirements & Recommendations
 24BMP Takes 4 Arguments: `--inputtxt`, `--sidtxt`, `--outputdir`, `--device`.
@@ -91,6 +93,8 @@ We recommend that you index the IDs like above (indexed and separated with an un
 
 `--device` : String containing the name of the device to perform FastSurferCNN Inference on. We highly recommend using a GPU('cuda').
 
+`--va` : This option decides whether to conduct volumetric analysis. Can be `True` or `False`. If `True`, the outcomes will be saved as `__volumetic_analysis.csv` in the `/test_files` directory within the output folder. Patient volumes are recorded in cubic millimeters (mm<sup>3</sup>) If `False`(Default), volumetic analysis is skipped. Volumetric analysis takes about 30 seconds per image.
+
 ### Outputs
 The `--outputdir` flag determines the (absolute) location of the outputs.
 
@@ -126,7 +130,9 @@ Below is the documentation for the extraction outputs.
 
 * `text_files` : Subdirectory containing text files with straightforward names, which contains paths to created files.
 The order of paths in the text file corresponds to the sequential order specified in the `--inputtxt` file.\
-The `__qc_failed.csv` file contains paths to files that failed the quality check. The files in the csv should have faulty segmentations.
+CSV files containing the outcomes of quality checks and volumetric analyses are also provided in this directory.\
+The `__qc_failed.csv` file contains paths to files that failed the quality check. The files in the csv should have faulty segmentations. \
+The `__volumetric_analysis.csv` file contains volumetric assessments for each patient, identified by their unique patient IDs provided in `--sid`.
 
 Below is an example output demonstrating the utilization of the flags provided above.
 ```
@@ -172,6 +178,7 @@ outputdir
 │       ...
 └── text_files
     ├── __qc_failed.csv
+    ├── __volumetric_analysis.csv
     ├── _conformed_paths.txt
     ├── _resampled_paths.txt
     ├── _segmented_paths.txt
@@ -179,6 +186,7 @@ outputdir
     ├── nifti_3rd_ventricle_padded_paths.txt
     ├── nifti_3rd_ventricle_padded_paths.txt
     ...
+    ├── nifti_ventraldc_left_paths.txt
     └── nifti_ventraldc_right_paths.txt
 ```
 

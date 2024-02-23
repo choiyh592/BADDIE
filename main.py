@@ -10,6 +10,7 @@ from lab2im.resampleAll import resampleAll
 from FastSurferCNN.run_prediction import run_single_prediction
 from Seg2Seg.extract_all import process_images
 from Seg2Seg.segment_qc import segmentations_qc
+from Seg2Seg.volume_check import calculate_volumes
 from src.main_utils import read_file, create_parser, create_text_files
 
 if __name__ == '__main__':
@@ -22,6 +23,7 @@ if __name__ == '__main__':
     parser.add_argument('--sidtxt', type=str, help='Text File containing the **Unique** subject ID to use. One ID per line.'
                         'Should be in the same order as the --inputtxt file. Should have the same number of lines as the --inputtxt file.')
     parser.add_argument('--outputdir', type=str, help='Path for a single directory to contain all outputs.')
+    parser.add_argument('--va', type=bool, help='If true, volumetric analyses on all segmented files are performed. Default: False', default=False)
     parser.add_argument('--device', type=str, help='Select device to run FastSurferCNN inference on: cpu, or cuda(= Nvidia GPU) or specify a certain GPU'
         '(e.g. cuda:1), default: auto' , default='auto')
 
@@ -54,6 +56,8 @@ if __name__ == '__main__':
     # Read the text file containing the subject IDs
     sid_file = Path(args.sidtxt)
     sids = read_file(sid_file)
+
+    perform_vol = args.va
 
     # Create text files for the conformed and segmented paths
     resampled_path_txt, conformed_path_txt, segmented_path_txt = create_text_files(seg_path, res_path, txt_path, sids)
@@ -109,5 +113,13 @@ if __name__ == '__main__':
     logging.info('Running quality check on the segmented files...')
     qc_path = segmentations_qc(txt_path)
     logging.info(f'Quality check file saved to {qc_path}')
+
+    # Perform volumetric analysis on the segmented files
+    if perform_vol:
+        logging.info('Running volumetric analysis on the segmented files...')
+        calculate_volumes(conformed_path_txt, segmented_path_txt, sid_file, txt_path)
+        logging.info(f'Volumetric analysis file saved to {txt_path / "volumetic_analysis.csv"}')
+    else:
+        logging.info('Skipping volumetric analysis on the segmented files...')
 
     logging.info("24BrainMRI_Preprocessing has finished running!")

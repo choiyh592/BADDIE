@@ -64,6 +64,7 @@ def create_parser(iteration, t1, sd, device, sid):
     parser.add_argument('--inputtxt', type=str, help='Text File containing T1 MRI paths for all subjects. One path per line.')
     parser.add_argument('--outputdir', type=str, help='Path for a single directory to contain all outputs.')
     parser.add_argument('--sidtxt', type=str, help='Text File containing the subject ID to use. One ID per line.' , default=None)
+    parser.add_argument('--va', type=bool, help='If true, volumetric analyses on all segmented files are performed. Default: False', default=False)
 
     # Used
     parser.add_argument('--t1', type=str, help='Name of T1 full head MRI. Absolute path if single image else '
