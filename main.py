@@ -9,10 +9,13 @@ from pathlib import Path
 from lab2im.resampleAll import resampleAll
 from FastSurferCNN.run_prediction import run_single_prediction
 from Seg2Seg.extract_all import process_images
+from Seg2Seg.segment_qc import segmentations_qc
 from src.main_utils import read_file, create_parser, create_text_files
 
 if __name__ == '__main__':
-    print("Starting 24BrainMRI_Preprocessing.")
+    # Set up the logging
+    logging.basicConfig(level=logging.INFO)
+    logging.info("Starting 24BrainMRI_Preprocessing.")
     # Parse the arguments
     parser = argparse.ArgumentParser(description='24BrainMRI_Preprocessing')
     parser.add_argument('--inputtxt', type=str, help='Text File containing absolute T1 MRI paths for all subjects. One path per line.')
@@ -90,10 +93,21 @@ if __name__ == '__main__':
         os.makedirs(seg_path / sid, exist_ok=True)
 
         # Run the resampling process(prediction)
-        run_single_prediction(new_parser)
+        try:
+            run_single_prediction(new_parser)
+        except Exception as e:
+            logging.error(f'Error running FastSurferCNN for subject {sid}. Error: {e}')
+            logging.error(f'Please check file {resampled_path} for errors.')
+            logging.error(f'Exiting 24BrainMRI_Preprocessing...')
+            sys.exit(1)
     
     # Extract the segmented files using Seg2Seg : check the README for further details
     logging.info('Running extraction of the segmented files using Seg2Seg...')
     process_images(conformed_path_txt, segmented_path_txt, txt_path, ext_path, num_of_files = num_inputs)
     
+    # Run quality check on the segmented files
+    logging.info('Running quality check on the segmented files...')
+    qc_path = segmentations_qc(txt_path)
+    logging.info(f'Quality check file saved to {qc_path}')
+
     logging.info("24BrainMRI_Preprocessing has finished running!")

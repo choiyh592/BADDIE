@@ -1,4 +1,3 @@
-import os
 import torch
 import numpy as np
 import nibabel as nib
@@ -8,6 +7,15 @@ from Seg2Seg.src.createdirs import createdirs_LR, createdirs_NLR
 
 # labels
 def process_images(resampled_file_path, mask_file_path, srcdir, outputdir, num_of_files = 0):
+    """
+    This function extracts the images from the resampled_file_path and mask_file_path and saves them as tensors in the outputdir
+    Args:
+    resampled_file_path: str: path to the resampled nifti file
+    mask_file_path: str: path to the mask nifti file
+    srcdir: str: path to the directory containing the nifti files
+    outputdir: str: path to the directory to save the tensors
+    num_of_files: int: number of files to process : needed for efficient logging (non-manadatory)
+    """
 
     resampled_file_path = str(resampled_file_path)
     mask_file_path = str(mask_file_path)

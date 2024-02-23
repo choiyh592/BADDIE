@@ -33,7 +33,7 @@ python3 -m pip install -r requirements.mac.txt
 ## Usage
 The Syntax for running the entire pipeline is :
 ```
-python3 24BrainMRI_Preprocessing/main.py 
+python3 24BrainMRI_Preprocessing/main.py \
     --inputtxt /path/to/your/input/filepaths/text/file \
     --sidtxt /path/to/your/patient/ids/text/file \
     --outputdir /path/to/your/output/directory \
@@ -125,7 +125,8 @@ Below is the documentation for the extraction outputs.
     The left and right images were merged into a single tensor dataset.
 
 * `text_files` : Subdirectory containing text files with straightforward names, which contains paths to created files.
-The order of paths in the text file corresponds to the sequential order specified in the `--inputtxt` file.
+The order of paths in the text file corresponds to the sequential order specified in the `--inputtxt` file.\
+The `__qc_failed.csv` file contains paths to files that failed the quality check. The files in the csv should have faulty segmentations.
 
 Below is an example output demonstrating the utilization of the flags provided above.
 ```
@@ -170,6 +171,7 @@ outputdir
 │       ├── mri
 │       ...
 └── text_files
+    ├── __qc_failed.csv
     ├── _conformed_paths.txt
     ├── _resampled_paths.txt
     ├── _segmented_paths.txt
@@ -180,16 +182,7 @@ outputdir
     └── nifti_ventraldc_right_paths.txt
 ```
 
-
-# What It Does
-
-## Resampling
-
-## Segmentation
-
-## Brainpart Extraction
-
-## Citations
+# Citations
 
 ### Lab2Im
 
@@ -217,7 +210,7 @@ NeuroImage 251 (2022), 118933
 
 ## References
 
-If you use this for research publications, please cite:
+If you use this for research publications, please consider citing:
 ```
 Development of an early Prognosis prediction model for Central Nervous System Infections using AI-based analysis of Brain MRIs
 TBD

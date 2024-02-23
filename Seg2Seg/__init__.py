@@ -3,4 +3,5 @@ __all__ = [
     "imageutils",
     "labels",
     "createdirs"
+    "segment_qc"
 ]
