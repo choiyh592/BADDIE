@@ -1,2 +1,0 @@
-/home/yhchoi/22BMTest/test/510328_1201_3d_t1_tfe_sag_f_gd.nii.gz
-/home/yhchoi/22BMTest/test/618605_801_3d_t1_tfe_sag_f_gd.nii.gz
