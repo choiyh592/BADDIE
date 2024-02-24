@@ -1,6 +1,5 @@
 from lab2im.src.resample import preprocess
 
-
 def resampleAll(path_images, path_resampled_images, cropping=None, min_pad=128):
     """Resample all images in a list to a new resolution.
     :param path_images: list of paths to the original images
