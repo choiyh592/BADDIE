@@ -101,7 +101,6 @@ def process_images(resampled_file_path, mask_file_path, srcdir, outputdir, num_o
             save_path = tensordir + part_to_segment.lower() + '_dataset.pt'
             torch.save(tensor_stack, save_path)
             print(f'All images saved as tensors at {save_path}')
-            print(tensor_stack.shape)
             print(f'Processing of {part_to_segment} Complete!')
 
         elif label_for_left_part == label_for_right_part :
@@ -167,7 +166,6 @@ def process_images(resampled_file_path, mask_file_path, srcdir, outputdir, num_o
             save_path = tensordir + part_to_segment.lower() + '_dataset.pt'
             torch.save(tensor_stack, save_path)
             print(f'All images saved as tensors at {save_path}')
-            print(tensor_stack.shape)
             print(f'Processing of {part_to_segment} Complete!')
 
     print('Processing Complete!')

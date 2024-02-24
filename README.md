@@ -189,6 +189,18 @@ outputdir
     ├── nifti_ventraldc_left_paths.txt
     └── nifti_ventraldc_right_paths.txt
 ```
+## Removal of images that failed the Quality Check from the tensor datasets
+You can run the below code to remove the filepaths of images that failed the Quality Check from the filepath text files,
+and Remove the faulty images from the tensor datasets.
+```
+python3 24BrainMRI_Preprocessing/remove_qc_failed.py \
+    --outputdir /path/to/your/output/directory
+```
+`--outputdir` should be the unmodified output directory of our `main.py` execution. Manipulation of the directory structure could lead to faluty results.
+
+To run this code, indexing your `--sidtxt` in the format of the recommendation above(indexed and separated with an underscore: e.g. 1_11112222, 2_22223333, {index_number}_{patient_id}...) is mandatory.
+
+Note that this code eliminates every occurrence of patients with failed QC files from the tensor datasets across all brain regions, ensuring uniformity. For example, if `/Outputs/extractions/PUTAMEN_CROPPED/left/183_10678967.nii.gz` is in your `__qc_failed.csv`, All brain part segments from patient `183` is deleted from all tensor datasets.
 
 # Citations
 
