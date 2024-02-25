@@ -200,6 +200,12 @@ python3 24BrainMRI_Preprocessing/remove_qc_failed.py \
 
 To run this code, indexing your `--sidtxt` in the format of the recommendation above(indexed and separated with an underscore: e.g. 1_11112222, 2_22223333, {index_number}_{patient_id}...) is mandatory.
 
+Running this code modifies the following :
+* outputdir/text_files/nifti_{BRAINPART}_padded_paths.txt
+* outputdir/extractions/{BRAINPART}_TENSORS/{BRAINPART}_dataset.pt
+
+for all Brainparts.
+
 Note that this code eliminates every occurrence of patients with failed QC files from the tensor datasets across all brain regions, ensuring uniformity. For example, if `/Outputs/extractions/PUTAMEN_CROPPED/left/183_10678967.nii.gz` is in your `__qc_failed.csv`, All brain part segments from patient `183` is deleted from all tensor datasets.
 
 # Citations
