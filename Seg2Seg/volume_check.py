@@ -31,7 +31,7 @@ def calculate_volumes(nifti_path, mask_path, sids_path, txt_file_path):
             volume_dict[lookup].append(volume)
         
     result_df = pd.DataFrame(volume_dict)
-    result_df.to_csv(txt_file_path / '__volumetic_analysis.csv', index=False)
+    result_df.to_csv(txt_file_path / '__volumetric_analysis.csv', index=False)
 
 def read_file(file_path):
     # Open the file in read mode
