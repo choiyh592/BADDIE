@@ -4,7 +4,7 @@ This README contains all information on how to run BADDIE, a preprocessing pipel
 
 ![](/images/pipeline_diagram.png)
 
-Above is a diagram for the BADDIE Pipeline. The BADDIE pipeline consists of three main parts for **Resampling**, **Segmentation** and **Brainpart Extraction**. The **Resampling** Part relies entirely on the resampling method used in **lab2im**, and the **Segmentation** Part on FastSurferCNN from **FastSurfer**. Both libraries are cited in the bottom of this README.
+Above is a diagram for the BADDIE Pipeline. The BADDIE pipeline consists of three main parts for **Resampling**, **Segmentation** and **Brainpart Extraction**. The **Resampling** Part relies entirely on the resampling method used in **lab2im**, and the **Segmentation** Part on FastSurferCNN from **FastSurfer**. Both libraries are cited in the bottom of this README. The **Brainpart Extraction** part relies on our original library **Seg2Seg**(Segmentation to Segments).
 
 # Getting Started
 
@@ -126,7 +126,7 @@ Below is the documentation for the extraction outputs.
     | {BRAINPART}_TENSORS | Directory containing tensor dataset containing the padded MRI files of {BRAINPART}|
 
     Brain parts categorized as left and right were placed into separate subdirectories named /left and /right.
-    The left and right images were merged into a single tensor dataset.
+    The tensors representing the left and right images were concatenated into a single tensor dataset, with the left image tensors preceding the right image tensors.
 
 * `text_files` : Subdirectory containing text files with straightforward names, which contains paths to created files.
 The order of paths in the text file corresponds to the sequential order specified in the `--inputtxt` file.\
