@@ -1,23 +1,23 @@
 # Overview
 
-This README contains all information on how to run 24BrainMRI_Preprocessing(24BMP for short), a preprocessing pipeline for *Development of an early Prognosis prediction model for Central Nervous System Infections using AI-based analysis of Brain MRIs*.
+This README contains all information on how to run BADDIE, a preprocessing pipeline originally put together for *Multimodal Deep Learning with MRI-Clinical Integration for Prediction of Prognosis in Central Nervous System Infections*.
 
 ![](/images/pipeline_diagram.png)
 
-Above is a diagram for the 24BMP Pipeline. The 24BMP pipeline consists of three main parts for **Resampling**, **Segmentation** and **Brainpart Extraction**. The **Resampling** Part relies entirely on the resampling method used in **lab2im**, and the **Segmentation** Part on FastSurferCNN from **FastSurfer**. Both libraries are cited in the bottom of this README.
+Above is a diagram for the BADDIE Pipeline. The BADDIE pipeline consists of three main parts for **Resampling**, **Segmentation** and **Brainpart Extraction**. The **Resampling** Part relies entirely on the resampling method used in **lab2im**, and the **Segmentation** Part on FastSurferCNN from **FastSurfer**. Both libraries are cited in the bottom of this README.
 
 # Getting Started
 
 ## Installation
-To install 24BMP, clone this repository to your desired location using below code :
+To install BADDIE, clone this repository to your desired location using below code :
 
 ```bash
-git clone https://github.com/choiyh592/24BrainMRI_Preprocessing_Dev.git
-cd 24BrainMRI_Preprocessing_Dev
+git clone https://github.com/choiyh592/BADDIE.git
+cd BADDIE
 ```
 
 ### Requirements
-24BM was developed using Python 3.10.4. Thus a Python version of 3.10.4 is recommended.
+BADDIE was developed using Python 3.10.4. Thus a Python version of 3.10.4 is recommended.
 
 You can install all requirements by executing the following code.
 * For Windows or Linux : 
@@ -33,7 +33,7 @@ python3 -m pip install -r requirements.mac.txt
 ## Usage
 The Syntax for running the entire pipeline is :
 ```
-python3 24BrainMRI_Preprocessing/main.py \
+python3 BADDIE/main.py \
     --inputtxt /path/to/your/input/filepaths/text/file \
     --sidtxt /path/to/your/patient/ids/text/file \
     --outputdir /path/to/your/output/directory \
@@ -45,9 +45,9 @@ To execute the entire pipeline, you can run the above code in the terminal after
 The execution takes about 6 minutes per MRI, assuming that FastSurferCNN is run on GPU. Using a GPU is highly recommended.
 
 ### Flags
-24BMP utilizes the ```argparse``` module from python to interpret the flags(arguments). You can view the descriptions by running : 
+BADDIE utilizes the ```argparse``` module from python to interpret the flags(arguments). You can view the descriptions by running : 
 ```
-python 24BrainMRI_Preprocessing/main.py --help
+python BADDIE/main.py --help
 ```
 Below are descriptions for the flags.
 * `--inputtxt`(str): Text File containing T1 MRI paths for all subjects. There should be only one path per line. An example is provided below.
@@ -59,7 +59,7 @@ An example is provided below.
 * `--va`(bool) : If true, volumetric analyses on all segmented files are performed. False by default.
 
 ### Input Requirements & Recommendations
-24BMP Takes 4 Arguments: `--inputtxt`, `--sidtxt`, `--outputdir`, `--device`.
+BADDIE Takes 4 Arguments: `--inputtxt`, `--sidtxt`, `--outputdir`, `--device`.
 
 `--inputtxt` : String containing the **Absolute Path** to Text file containing the **Absolute Paths** of the input T1 MRI Data. Below is an example.
 ```
@@ -193,7 +193,7 @@ outputdir
 You can run the below code to remove the filepaths of images that failed the Quality Check from the filepath text files,
 and Remove the faulty images from the tensor datasets.
 ```
-python3 24BrainMRI_Preprocessing/remove_qc_failed.py \
+python3 BADDIE/remove_qc_failed.py \
     --outputdir /path/to/your/output/directory
 ```
 `--outputdir` should be the unmodified output directory of our `main.py` execution. Manipulation of the directory structure could lead to faluty results.
@@ -238,7 +238,7 @@ NeuroImage 251 (2022), 118933
 
 If you use this for research publications, please consider citing:
 ```
-Development of an early Prognosis prediction model for Central Nervous System Infections using AI-based analysis of Brain MRIs
-TBD
+Multimodal Deep Learning with MRI-Clinical Integration for Prediction of Prognosis in Central Nervous System Infections
+BK Choi, YH Choi, TBD, YR Park, TBD
 ```
 along with the above citations.
