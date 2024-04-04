@@ -8,7 +8,7 @@ Above is a diagram for the BADDIE Pipeline. The BADDIE pipeline consists of thre
 
 The segmentations utilize the [Desikan-Killiany-Tourville(DKT) atlas](https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation), akin to the segmentation methodology employed in Freesurfer. Below is an image displaying the contours of the DKT atlas. The visualization was created using [Nilearn](https://nilearn.github.io/stable/index.html).
 
-![](/images/dkt_atlas.png)
+![](/images/dkt_atlas_contours.png)
 
 The input MRI data must be T1-Weighted MRI images in NIFTI(Neuroimaging Informatics Technology Initiative) format, either as .nii or .nii.gz files, or in a compatible format.
 
