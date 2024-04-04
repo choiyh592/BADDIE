@@ -6,7 +6,7 @@ This README contains all information on how to run ***BADDIE*** *: Brainpart Ana
 
 Above is a diagram for the BADDIE Pipeline. The BADDIE pipeline consists of three main parts for **Resampling**, **Segmentation** and **Brainpart Extraction**. The **Resampling** Part relies entirely on the resampling method used in **lab2im**, and the **Segmentation** Part on FastSurferCNN from **FastSurfer**. Both libraries are linked and cited in the bottom of this README. The **Brainpart Extraction** part relies on our original library **Seg2Seg**(Segmentation to Segments).
 
-The segmentations utilize the [Desikan-Killany-Tourville(DKT) atlas](https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation), akin to the segmentation methodology employed in Freesurfer. Below is an image displaying the contours of the DKT atlas. The visualization was created using [Nilearn](https://nilearn.github.io/stable/index.html).
+The segmentations utilize the [Desikan-Killiany-Tourville(DKT) atlas](https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation), akin to the segmentation methodology employed in Freesurfer. Below is an image displaying the contours of the DKT atlas. The visualization was created using [Nilearn](https://nilearn.github.io/stable/index.html).
 
 ![](/images/dkt_atlas.png)
 
