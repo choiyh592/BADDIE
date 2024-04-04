@@ -613,7 +613,7 @@ def run_single_prediction(parser):
 
             # Run QC check
             LOGGER.info("Running volume-based QC check on segmentation...")
-            seg_voxvol = np.product(orig_img.header.get_zooms())
+            seg_voxvol = np.prod(orig_img.header.get_zooms())
             if not check_volume(pred_data, seg_voxvol):
                 LOGGER.warning(
                     "Total segmentation volume is too small. Segmentation may be corrupted."
