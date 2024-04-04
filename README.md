@@ -1,10 +1,16 @@
 # Overview
 
-This README contains all information on how to run BADDIE, a preprocessing pipeline originally put together for *Multimodal Deep Learning with MRI-Clinical Integration for Prediction of Prognosis in Central Nervous System Infections*.
+This README contains all information on how to run ***BADDIE*** *: Brainpart Anatomical Decomposition with DKTatlas-guided Image Extraction*, a preprocessing pipeline originally put together for *Multimodal Deep Learning with MRI-Clinical Integration for Prediction of Prognosis in Central Nervous System Infections*.
 
 ![](/images/pipeline_diagram.png)
 
-Above is a diagram for the BADDIE Pipeline. The BADDIE pipeline consists of three main parts for **Resampling**, **Segmentation** and **Brainpart Extraction**. The **Resampling** Part relies entirely on the resampling method used in **lab2im**, and the **Segmentation** Part on FastSurferCNN from **FastSurfer**. Both libraries are cited in the bottom of this README. The **Brainpart Extraction** part relies on our original library **Seg2Seg**(Segmentation to Segments).
+Above is a diagram for the BADDIE Pipeline. The BADDIE pipeline consists of three main parts for **Resampling**, **Segmentation** and **Brainpart Extraction**. The **Resampling** Part relies entirely on the resampling method used in **lab2im**, and the **Segmentation** Part on FastSurferCNN from **FastSurfer**. Both libraries are linked and cited in the bottom of this README. The **Brainpart Extraction** part relies on our original library **Seg2Seg**(Segmentation to Segments).
+
+The segmentations utilize the [Desikan-Killany-Tourville(DKT) atlas](https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation), akin to the segmentation methodology employed in Freesurfer. Below is an image displaying the contours of the DKT atlas. The visualization was created using [Nilearn](https://nilearn.github.io/stable/index.html).
+
+![](/images/dkt_atlas.png)
+
+The input MRI data must be T1-Weighted MRI images in NIFTI(Neuroimaging Informatics Technology Initiative) format, either as .nii or .nii.gz files, or in a compatible format.
 
 # Getting Started
 
@@ -198,9 +204,10 @@ python3 BADDIE/remove_qc_failed.py \
 ```
 `--outputdir` should be the unmodified output directory of our `main.py` execution. Manipulation of the directory structure could lead to faluty results.
 
-To run this code, indexing your `--sidtxt` in the format of the recommendation above(indexed and separated with an underscore: e.g. 1_11112222, 2_22223333, {index_number}_{patient_id}...) is mandatory.
+To run this code, indexing your `--sidtxt` in the format of the recommendation above(indexed and separated with an underscore: e.g. 1_11112222, 2_22223333, {index_number}_{patient_id}...) is mandatory. If you wish to index your sids differently, you can modify the `retrieve_patient_idx()` function in `BADDIE/Seg2Seg/segment_qc.py`.
 
 Running this code modifies the following :
+* outputdir/text_files/__volumetric_analysis.csv
 * outputdir/text_files/nifti_{BRAINPART}_padded_paths.txt
 * outputdir/extractions/{BRAINPART}_TENSORS/{BRAINPART}_dataset.pt
 
