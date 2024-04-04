@@ -2,7 +2,7 @@
 
 This README contains all information on how to run ***BADDIE*** *: Brainpart Anatomical Decomposition with DKTatlas-guided Image Extraction*, a preprocessing pipeline originally put together for *Multimodal Deep Learning with MRI-Clinical Integration for Prediction of Prognosis in Central Nervous System Infections*.
 
-![](/images/pipeline_diagram.png)
+![](/images/pipeline_diagram_v2.png)
 
 Above is a diagram for the BADDIE Pipeline. The BADDIE pipeline consists of three main parts for **Resampling**, **Segmentation** and **Brainpart Extraction**. The **Resampling** Part relies entirely on the resampling method used in **lab2im**, and the **Segmentation** Part on FastSurferCNN from **FastSurfer**. Both libraries are linked and cited in the bottom of this README. The **Brainpart Extraction** part relies on our original library **Seg2Seg**(Segmentation to Segments).
 
