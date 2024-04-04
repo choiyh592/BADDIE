@@ -3,6 +3,18 @@ import pandas as pd
 from Seg2Seg.src.labels import labels, label_lookups
 from Seg2Seg.src.imageutils import quality_check, process_nifti_files, process_nifti_files_nLR
 
+def retrieve_patient_idx(line):
+    """
+    This function retrieves the patient index from the file path
+    Args:
+    line: str: file path
+    Returns:
+    patient_idx: str: patient index
+    """
+    # patient_idx = line.strip("\n").split('/')[-1].split('_')[0] + '_' + line.strip("\n").split('/')[-1].split('_')[1]
+    patient_idx = line.strip("\n").split('/')[-1].split('_')[0]
+    return patient_idx
+
 def segmentations_qc(srcdir):
     """
     This function runs quality check on the segmented files
@@ -59,7 +71,7 @@ def remove_lines_from_text(text_file, lines_to_delete):
         lines = f.readlines()
     with open(text_file, "w") as f:
         for line in lines:
-            patient_idx = line.strip("\n").split('/')[-1].split('_')[0]
+            patient_idx = retrieve_patient_idx(line)
             if patient_idx not in lines_to_delete:
                 f.write(line)
             else:
@@ -79,11 +91,12 @@ def remove_qcfailed(outputdir):
     srcdir = outputdir + '/' + 'text_files'
     excdir = outputdir + '/' + 'extractions'
     qc_file = srcdir + '/' + '__qc_failed.csv'
+    va_file = srcdir + '/' + '__volumetric_analysis.csv'
 
     print('Processing Started!')
     df = pd.read_csv(qc_file)
     failed_qc_filenames = df['filename'].tolist()
-    failed_qc_indices = [filename.split('/')[-1].split('_')[0] for filename in failed_qc_filenames]
+    failed_qc_indices = [retrieve_patient_idx(filename) for filename in failed_qc_filenames]
     failed_qc_indices = list(set(failed_qc_indices))
 
     for part_to_segment in labels:
@@ -102,6 +115,7 @@ def remove_qcfailed(outputdir):
             print('Removing failed files from the text files...')
             remove_lines_from_text(padded_left_path, failed_qc_indices)
             remove_lines_from_text(padded_right_path, failed_qc_indices)
+            remove_lines_from_text(va_file, failed_qc_indices)
 
             tensordir = excdir + '/' + part_to_segment.upper() + '_TENSORS/'
 
@@ -118,6 +132,7 @@ def remove_qcfailed(outputdir):
             # Remove the failed files from the text files
             print('Removing failed files from the text files...')
             remove_lines_from_text(padded_path, failed_qc_indices)
+            remove_lines_from_text(va_file, failed_qc_indices)
             tensor_stack = process_nifti_files_nLR(padded_path)
 
             tensordir = excdir + '/' + part_to_segment.upper() + '_TENSORS/'
