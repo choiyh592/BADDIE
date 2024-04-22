@@ -656,21 +656,48 @@ def get_conformed_vox_img_size(
         conform_vox_size: VoxSizeOption,
         conform_to_1mm_threshold: Optional[float] = None
 ) -> Tuple[float, int]:
-    """Sets the image dimension to 256^3 and calculates the voxel size 
-    accordingly.
-        Parameters
-        ----------
-        img : nib.analyze.SpatialImage
-            Loaded source image
-        conform_vox_size : Any (Not Used)
-        conform_to_1mm_threshold : Any (Not Used)    
-        """
-    current_shape = img.header.get_data_shape()
-    scale_factor = max(current_shape) / 256.0
-    new_vox_size = max(img.header.get_zooms()) * scale_factor
-    new_img_dim = 256
-    return new_vox_size, new_img_dim
+    """
+    Extract the voxel size and the image size.
 
+    This function only needs the header (not the data).
+
+    Parameters
+    ----------
+    img : nib.analyze.SpatialImage
+        Loaded source image.
+    conform_vox_size : float, "min"
+        The voxel size parameter to use: either a voxel size as float, or the string
+        "min" to automatically find a suitable voxel size (smallest per-dimension voxel
+        size).
+    conform_to_1mm_threshold : float, optional
+        The threshold for which image voxel size should be conformed to 1mm instead of
+        conformed to the smallest voxel size (default: None = 1.0, never apply).
+
+    Returns
+    -------
+    conformed_vox_size : float
+        The determined voxel size to conform the image to.
+    conformed_img_size : int
+        The size of the image adjusted to the conformed voxel size.
+    """
+    # this is similar to mri_convert --conform_min
+    if isinstance(conform_vox_size, str) and conform_vox_size.lower() in [
+        "min",
+        "auto",
+    ]:
+        conformed_vox_size = find_min_size(img)
+        if (
+            conform_to_1mm_threshold is not None
+            and conformed_vox_size > conform_to_1mm_threshold
+        ):
+            conformed_vox_size = 1.0
+    # this is similar to mri_convert --conform_size <float>
+    elif isinstance(conform_vox_size, float) and 0.0 < conform_vox_size <= 1.0:
+        conformed_vox_size = conform_vox_size
+    else:
+        raise ValueError("Invalid value for conform_vox_size passed.")
+    conformed_img_size = find_img_size_by_fov(img, conformed_vox_size)
+    return conformed_vox_size, conformed_img_size
 
 def check_affine_in_nifti(
         img: Union[nib.Nifti1Image, nib.Nifti2Image],
